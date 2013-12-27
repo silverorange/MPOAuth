@@ -32,6 +32,27 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		3A424F39186D2CDE000F0CE9 /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD26297111E410A0003486C /* MPOAuthAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3A186D2CE1000F0CE9 /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD26295111E410A0003486C /* MPDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3B186D2CE4000F0CE9 /* MPOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD26296111E410A0003486C /* MPOAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3C186D2CE9000F0CE9 /* MPOAuthAPIRequestLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD26299111E410A0003486C /* MPOAuthAPIRequestLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3D186D2CED000F0CE9 /* MPOAuthConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262A1111E410A0003486C /* MPOAuthConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3E186D2CF0000F0CE9 /* MPOAuthCredentialConcreteStore.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262A6111E410A0003486C /* MPOAuthCredentialConcreteStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F3F186D2CF2000F0CE9 /* MPOAuthCredentialConcreteStore+KeychainAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262A4111E410A0003486C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F40186D2CF5000F0CE9 /* MPOAuthCredentialStore.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262A8111E410A0003486C /* MPOAuthCredentialStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F41186D2CF8000F0CE9 /* MPOAuthParameterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262A9111E410A0003486C /* MPOAuthParameterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F42186D2CFB000F0CE9 /* MPOAuthSignatureParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262AA111E410A0003486C /* MPOAuthSignatureParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F43186D2D00000F0CE9 /* MPOAuthURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262AC111E410A0003486C /* MPOAuthURLRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F44186D2D03000F0CE9 /* MPOAuthURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262AE111E410A0003486C /* MPOAuthURLResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F45186D2D08000F0CE9 /* MPURLRequestParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262B0111E410A0003486C /* MPURLRequestParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F46186D2D0B000F0CE9 /* MPWSLRDDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262B2111E410A0003486C /* MPWSLRDDiscoverer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F47186D2D0F000F0CE9 /* MPWSXRDDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262B4111E410A0003486C /* MPWSXRDDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F48186D2D13000F0CE9 /* NSString+URLEscapingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262B6111E410A0003486C /* NSString+URLEscapingAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F49186D2D16000F0CE9 /* NSURL+MPURLParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262B8111E410A0003486C /* NSURL+MPURLParameterAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F4A186D2D19000F0CE9 /* NSURLResponse+Encoding.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD262BA111E410A0003486C /* NSURLResponse+Encoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F4B186D306B000F0CE9 /* MPOAuthAuthenticationMethodOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD2629F111E410A0003486C /* MPOAuthAuthenticationMethodOAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F4C186D3070000F0CE9 /* MPOAuthAuthenticationMethodAuthExchange.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD2629D111E410A0003486C /* MPOAuthAuthenticationMethodAuthExchange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A424F4D186D3075000F0CE9 /* MPOAuthAuthenticationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD2629B111E410A0003486C /* MPOAuthAuthenticationMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB36C2E21124CE51005CF675 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = CBD26293111E410A0003486C /* Base64Transcoder.c */; };
 		CB36C2E31124CE51005CF675 /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD26298111E410A0003486C /* MPOAuthAPI.m */; };
 		CB36C2E41124CE51005CF675 /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD2629A111E410A0003486C /* MPOAuthAPIRequestLoader.m */; };
@@ -75,7 +96,7 @@
 		CB36C3B91124D425005CF675 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		CB36C3BA1124D425005CF675 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		CB36C3BB1124D425005CF675 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
-		CB36C3BC1124D425005CF675 /* libMPOAuthMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD262D5111E412E0003486C /* libMPOAuthMobile.a */; };
+		CB36C3BC1124D425005CF675 /* libMPOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD262D5111E412E0003486C /* libMPOAuth.a */; };
 		CB36C3BD1124D425005CF675 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD2637B111E501D0003486C /* libxml2.dylib */; };
 		CB36C3BE1124D425005CF675 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD26382111E50420003486C /* Security.framework */; };
 		CB36C4051124D65D005CF675 /* UserAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB36C4041124D65D005CF675 /* UserAuthViewController.m */; };
@@ -83,7 +104,7 @@
 		CB36C4151124D792005CF675 /* UserAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB36C4141124D792005CF675 /* UserAuthViewController.xib */; };
 		CB36C4161124D792005CF675 /* UserAuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB36C4141124D792005CF675 /* UserAuthViewController.xib */; };
 		CBB244701124B86800026C36 /* Mobile Unit Tests.octest in Resources */ = {isa = PBXBuildFile; fileRef = CBCF41A511240C5600E90EE8 /* Mobile Unit Tests.octest */; };
-		CBB2D6FE11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = CBB2D6FC11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h */; };
+		CBB2D6FE11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = CBB2D6FC11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBB2D6FF11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB2D6FD11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.m */; };
 		CBB2D70011439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = CBB2D6FC11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h */; };
 		CBB2D70111439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB2D6FD11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.m */; };
@@ -121,7 +142,7 @@
 		CBD262E8111E415D0003486C /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD262B7111E410A0003486C /* NSString+URLEscapingAdditions.m */; };
 		CBD262E9111E415D0003486C /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD262B9111E410A0003486C /* NSURL+MPURLParameterAdditions.m */; };
 		CBD262EA111E415D0003486C /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD262BB111E410A0003486C /* NSURLResponse+Encoding.m */; };
-		CBD262F2111E42040003486C /* libMPOAuthMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD262D5111E412E0003486C /* libMPOAuthMobile.a */; };
+		CBD262F2111E42040003486C /* libMPOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD262D5111E412E0003486C /* libMPOAuth.a */; };
 		CBD2637C111E501D0003486C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD2637B111E501D0003486C /* libxml2.dylib */; };
 		CBD2637F111E502C0003486C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD2637B111E501D0003486C /* libxml2.dylib */; };
 		CBD26383111E50420003486C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD26382111E50420003486C /* Security.framework */; };
@@ -365,7 +386,7 @@
 		CBD262B9111E410A0003486C /* NSURL+MPURLParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPURLParameterAdditions.m"; sourceTree = "<group>"; };
 		CBD262BA111E410A0003486C /* NSURLResponse+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLResponse+Encoding.h"; sourceTree = "<group>"; };
 		CBD262BB111E410A0003486C /* NSURLResponse+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLResponse+Encoding.m"; sourceTree = "<group>"; };
-		CBD262D5111E412E0003486C /* libMPOAuthMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMPOAuthMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBD262D5111E412E0003486C /* libMPOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMPOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBD2637B111E501D0003486C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		CBD26382111E50420003486C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CBD263A4111E54E70003486C /* oauthAutoConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = oauthAutoConfig.plist; path = Resources/oauthAutoConfig.plist; sourceTree = "<group>"; };
@@ -389,7 +410,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
-				CBD262F2111E42040003486C /* libMPOAuthMobile.a in Frameworks */,
+				CBD262F2111E42040003486C /* libMPOAuth.a in Frameworks */,
 				CBD2637F111E502C0003486C /* libxml2.dylib in Frameworks */,
 				CBD26388111E504F0003486C /* Security.framework in Frameworks */,
 			);
@@ -421,7 +442,7 @@
 				CB36C3B91124D425005CF675 /* Foundation.framework in Frameworks */,
 				CB36C3BA1124D425005CF675 /* UIKit.framework in Frameworks */,
 				CB36C3BB1124D425005CF675 /* CoreGraphics.framework in Frameworks */,
-				CB36C3BC1124D425005CF675 /* libMPOAuthMobile.a in Frameworks */,
+				CB36C3BC1124D425005CF675 /* libMPOAuth.a in Frameworks */,
 				CB36C3BD1124D425005CF675 /* libxml2.dylib in Frameworks */,
 				CB36C3BE1124D425005CF675 /* Security.framework in Frameworks */,
 			);
@@ -495,7 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* MPOAuthMobile.app */,
-				CBD262D5111E412E0003486C /* libMPOAuthMobile.a */,
+				CBD262D5111E412E0003486C /* libMPOAuth.a */,
 				CBD26484111F46580003486C /* MPOAuthTestApp.app */,
 				CBD26517111F4B180003486C /* MPOAuth.framework */,
 				CBCF41A511240C5600E90EE8 /* Mobile Unit Tests.octest */,
@@ -688,7 +709,28 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A424F39186D2CDE000F0CE9 /* MPOAuthAPI.h in Headers */,
+				3A424F3A186D2CE1000F0CE9 /* MPDebug.h in Headers */,
+				3A424F3B186D2CE4000F0CE9 /* MPOAuth.h in Headers */,
+				3A424F3C186D2CE9000F0CE9 /* MPOAuthAPIRequestLoader.h in Headers */,
+				3A424F3D186D2CED000F0CE9 /* MPOAuthConnection.h in Headers */,
+				3A424F3E186D2CF0000F0CE9 /* MPOAuthCredentialConcreteStore.h in Headers */,
+				3A424F3F186D2CF2000F0CE9 /* MPOAuthCredentialConcreteStore+KeychainAdditions.h in Headers */,
+				3A424F40186D2CF5000F0CE9 /* MPOAuthCredentialStore.h in Headers */,
+				3A424F41186D2CF8000F0CE9 /* MPOAuthParameterFactory.h in Headers */,
+				3A424F42186D2CFB000F0CE9 /* MPOAuthSignatureParameter.h in Headers */,
+				3A424F43186D2D00000F0CE9 /* MPOAuthURLRequest.h in Headers */,
+				3A424F44186D2D03000F0CE9 /* MPOAuthURLResponse.h in Headers */,
+				3A424F45186D2D08000F0CE9 /* MPURLRequestParameter.h in Headers */,
+				3A424F46186D2D0B000F0CE9 /* MPWSLRDDiscoverer.h in Headers */,
+				3A424F47186D2D0F000F0CE9 /* MPWSXRDDocument.h in Headers */,
+				3A424F48186D2D13000F0CE9 /* NSString+URLEscapingAdditions.h in Headers */,
+				3A424F49186D2D16000F0CE9 /* NSURL+MPURLParameterAdditions.h in Headers */,
+				3A424F4A186D2D19000F0CE9 /* NSURLResponse+Encoding.h in Headers */,
 				CBB2D6FE11439D0700D757C7 /* MPOAuthAuthenticationMethodXAuth.h in Headers */,
+				3A424F4B186D306B000F0CE9 /* MPOAuthAuthenticationMethodOAuth.h in Headers */,
+				3A424F4C186D3070000F0CE9 /* MPOAuthAuthenticationMethodAuthExchange.h in Headers */,
+				3A424F4D186D3075000F0CE9 /* MPOAuthAuthenticationMethod.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,7 +882,7 @@
 			);
 			name = libMPOAuth;
 			productName = MPOAuth;
-			productReference = CBD262D5111E412E0003486C /* libMPOAuthMobile.a */;
+			productReference = CBD262D5111E412E0003486C /* libMPOAuth.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		CBD26483111F46580003486C /* MPOAuthTestApp */ = {
@@ -1622,7 +1664,8 @@
 				GCC_PREFIX_HEADER = MPOAuthConnection_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				PREBINDING = NO;
-				PRODUCT_NAME = MPOAuthMobile;
+				PRODUCT_NAME = MPOAuth;
+				PUBLIC_HEADERS_FOLDER_PATH = include/MPOAuth;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1639,7 +1682,8 @@
 				GCC_PREFIX_HEADER = MPOAuthConnection_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				PREBINDING = NO;
-				PRODUCT_NAME = MPOAuthMobile;
+				PRODUCT_NAME = MPOAuth;
+				PUBLIC_HEADERS_FOLDER_PATH = include/MPOAuth;
 				SDKROOT = iphoneos;
 				ZERO_LINK = NO;
 			};
