@@ -55,10 +55,10 @@ typedef enum {
 	MPOAuthAuthenticationState									oauthAuthenticationState_;
 }
 
-@property (nonatomic, readonly, retain) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
-@property (nonatomic, readonly, retain) NSURL *baseURL;
-@property (nonatomic, readonly, retain) NSURL *authenticationURL;
-@property (nonatomic, readwrite, retain) MPOAuthAuthenticationMethod *authenticationMethod;
+@property (nonatomic, readonly, strong) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
+@property (nonatomic, readonly, strong) NSURL *baseURL;
+@property (nonatomic, readonly, strong) NSURL *authenticationURL;
+@property (nonatomic, readwrite, strong) MPOAuthAuthenticationMethod *authenticationMethod;
 @property (nonatomic, readwrite, assign) MPOAuthSignatureScheme signatureScheme;
 
 @property (nonatomic, readonly, assign) MPOAuthAuthenticationState authenticationState;

@@ -17,10 +17,10 @@
 
 @interface MPOAuthConnection : NSURLConnection {
 @private
-	MPOAuthCredentialConcreteStore *_credentials;
+	MPOAuthCredentialConcreteStore *__weak _credentials;
 }
 
-@property (nonatomic, readonly) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
+@property (weak, nonatomic, readonly) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
 
 + (MPOAuthConnection *)connectionWithRequest:(MPOAuthURLRequest *)inRequest delegate:(id)inDelegate credentials:(NSObject <MPOAuthCredentialStore, MPOAuthParameterFactory> *)inCredentials;
 + (NSData *)sendSynchronousRequest:(MPOAuthURLRequest *)inRequest usingCredentials:(NSObject <MPOAuthCredentialStore, MPOAuthParameterFactory> *)inCredentials returningResponse:(MPOAuthURLResponse **)outResponse error:(NSError **)inError;

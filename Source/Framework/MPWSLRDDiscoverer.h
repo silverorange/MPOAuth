@@ -21,7 +21,7 @@ typedef enum {
 } MPWSLRDDiscovererState;
 
 @interface MPWSLRDDiscoverer : NSObject {
-	id <MPWSLRDDiscovererDelegate>	_delegate;
+	id <MPWSLRDDiscovererDelegate>	__weak _delegate;
 	NSURL							*_endpointURL;
 	NSString						*_soughtMIMEType;
 	NSURLConnection					*_urlConnection;
@@ -30,7 +30,7 @@ typedef enum {
 	MPWSLRDDiscovererState			_discoveryState;
 }
 
-@property (nonatomic, readonly, assign) id <MPWSLRDDiscovererDelegate> delegate;
+@property (nonatomic, readonly, weak) id <MPWSLRDDiscovererDelegate> delegate;
 @property (nonatomic, readonly, assign) MPWSLRDDiscovererState discoveryState;
 
 - (void)locateResourceOfType:(NSString *)inMimeType fromURL:(NSURL *)inURL;

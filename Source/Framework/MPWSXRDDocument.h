@@ -15,9 +15,9 @@
 	NSDictionary	*_urlRelationships;
 }
 
-@property (nonatomic, readonly, retain) NSString *subject;
-@property (nonatomic, readonly, retain) NSDate *expirationDate;
-@property (nonatomic, readonly, retain) NSDictionary *urlRelationships;
+@property (nonatomic, readonly, strong) NSString *subject;
+@property (nonatomic, readonly, strong) NSDate *expirationDate;
+@property (nonatomic, readonly, strong) NSDictionary *urlRelationships;
 
 - (id)initFromURL:(NSURL *)inURL;
 - (id)iniWithString:(NSString *)inString;

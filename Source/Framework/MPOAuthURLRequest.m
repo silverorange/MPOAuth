@@ -14,7 +14,7 @@
 #import "NSString+URLEscapingAdditions.h"
 
 @interface MPOAuthURLRequest ()
-@property (nonatomic, readwrite, retain) NSURLRequest *urlRequest;
+@property (nonatomic, readwrite, strong) NSURLRequest *urlRequest;
 @end
 
 @implementation MPOAuthURLRequest
@@ -31,21 +31,13 @@
 - (id)initWithURLRequest:(NSURLRequest *)inRequest {
 	if ((self = [super init])) {
 		self.url = [[inRequest URL] urlByRemovingQuery];
-		self.parameters = [[[MPURLRequestParameter parametersFromString:[[inRequest URL] query]] mutableCopy] autorelease];
+		self.parameters = [[MPURLRequestParameter parametersFromString:[[inRequest URL] query]] mutableCopy];
 		self.HTTPMethod = [inRequest HTTPMethod];
-		self.urlRequest = [[inRequest mutableCopy] autorelease];
+		self.urlRequest = [inRequest mutableCopy];
 	}
 	return self;
 }
 
-- (oneway void)dealloc {
-	self.url = nil;
-	self.HTTPMethod = nil;
-	self.urlRequest = nil;
-	self.parameters = nil;
-	
-	[super dealloc];
-}
 
 @synthesize url = _url;
 @synthesize HTTPMethod = _httpMethod;
@@ -121,9 +113,6 @@
 	[aRequest setURL:[NSURL URLWithString:urlString]];
 	self.urlRequest = aRequest;
 	
-	[parameterString release];
-	[signatureParameter release];
-	[aRequest release];
 	
 	return aRequest;
 }
