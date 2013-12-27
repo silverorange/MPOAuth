@@ -1663,6 +1663,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = MPOAuthConnection_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				PRODUCT_NAME = MPOAuth;
 				PUBLIC_HEADERS_FOLDER_PATH = include/MPOAuth;
@@ -1681,6 +1682,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PREFIX_HEADER = MPOAuthConnection_Prefix.pch;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				PRODUCT_NAME = MPOAuth;
 				PUBLIC_HEADERS_FOLDER_PATH = include/MPOAuth;
