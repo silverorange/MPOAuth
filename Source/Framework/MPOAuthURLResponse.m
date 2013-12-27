@@ -9,8 +9,8 @@
 #import "MPOAuthURLResponse.h"
 
 @interface MPOAuthURLResponse ()
-@property (nonatomic, readwrite, retain) NSURLResponse *urlResponse;
-@property (nonatomic, readwrite, retain) NSDictionary *oauthParameters;
+@property (nonatomic, readwrite, strong) NSURLResponse *urlResponse;
+@property (nonatomic, readwrite, strong) NSDictionary *oauthParameters;
 @end
 
 @implementation MPOAuthURLResponse
@@ -22,12 +22,6 @@
 	return self;
 }
 
-- (oneway void)dealloc {
-	self.urlResponse = nil;
-	self.oauthParameters = nil;
-	
-	[super dealloc];
-}
 
 @synthesize urlResponse = _urlResponse;
 @synthesize oauthParameters = _oauthParameters;

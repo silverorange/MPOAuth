@@ -19,9 +19,9 @@ extern NSString * const MPOAuthCredentialAccessTokenSecretKey;
 extern NSString * const MPOAuthCredentialSessionHandleKey;
 
 @interface MPOAuthCredentialConcreteStore ()
-@property (nonatomic, readwrite, retain) NSMutableDictionary *store;
-@property (nonatomic, readwrite, retain) NSURL *baseURL;
-@property (nonatomic, readwrite, retain) NSURL *authenticationURL;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *store;
+@property (nonatomic, readwrite, strong) NSURL *baseURL;
+@property (nonatomic, readwrite, strong) NSURL *authenticationURL;
 @end
 
 @implementation MPOAuthCredentialConcreteStore
@@ -51,13 +51,6 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	return self;
 }
 
-- (oneway void)dealloc {
-	self.store = nil;
-	self.baseURL = nil;
-	self.authenticationURL = nil;
-	
-	[super dealloc];
-}
 
 @synthesize store = store_;
 @synthesize baseURL = baseURL_;
@@ -212,7 +205,7 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	[oauthParameters addObject:[self oauthNonceParameter]];
 	[oauthParameters addObject:[self oauthVersionParameter]];
 	
-	return [oauthParameters autorelease];
+	return oauthParameters;
 }
 
 - (void)setSignatureMethod:(NSString *)inSignatureMethod {
@@ -224,7 +217,7 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	aRequestParameter.name = @"oauth_consumer_key";
 	aRequestParameter.value = self.consumerKey;
 	
-	return [aRequestParameter autorelease];
+	return aRequestParameter;
 }
 
 - (MPURLRequestParameter *)oauthTokenParameter {
@@ -241,7 +234,7 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 		}
 	}
 	
-	return [aRequestParameter autorelease];
+	return aRequestParameter;
 }
 
 - (MPURLRequestParameter *)oauthSignatureMethodParameter {
@@ -249,7 +242,7 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	aRequestParameter.name = @"oauth_signature_method";
 	aRequestParameter.value = self.signatureMethod;
 	
-	return [aRequestParameter autorelease];
+	return aRequestParameter;
 }
 
 - (MPURLRequestParameter *)oauthTimestampParameter {
@@ -257,7 +250,7 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	aRequestParameter.name = @"oauth_timestamp";
 	aRequestParameter.value = self.timestamp;
 	
-	return [aRequestParameter autorelease];
+	return aRequestParameter;
 }
 
 - (MPURLRequestParameter *)oauthNonceParameter {
@@ -267,13 +260,12 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	NSString *generatedNonce = nil;
 	CFUUIDRef generatedUUID = CFUUIDCreate(kCFAllocatorDefault);
 	
-	generatedNonce = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, generatedUUID);
+	generatedNonce = (NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, generatedUUID));
 	CFRelease(generatedUUID);
 	
 	aRequestParameter.value = generatedNonce;
-	[generatedNonce release];
 	
-	return [aRequestParameter autorelease];
+	return aRequestParameter;
 }
 
 - (MPURLRequestParameter *)oauthVersionParameter {
@@ -283,7 +275,6 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 		versionParameter = [[MPURLRequestParameter alloc] init];
 		versionParameter.name = @"oauth_version";
 		versionParameter.value = @"1.0";
-		[versionParameter autorelease];
 	}
 	
 	return versionParameter;
