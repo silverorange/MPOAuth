@@ -74,16 +74,18 @@
 
 	status = SecItemCopyMatching((__bridge CFDictionaryRef)searchDictionary, (CFTypeRef *)&attributes);
     
-    attributesDictionary = (__bridge_transfer NSDictionary *)attributes;
-	foundValue = [attributesDictionary objectForKey:(__bridge id)kSecValueData];
-	if (outKeychainItemRef) {
-		*outKeychainItemRef = attributesDictionary;
+    if (status == noErr) {
+        attributesDictionary = (__bridge_transfer NSDictionary *)attributes;
+        foundValue = [attributesDictionary objectForKey:(__bridge id)kSecValueData];
+        if (outKeychainItemRef) {
+            *outKeychainItemRef = attributesDictionary;
+        }
+        
+        if (foundValue) {
+            foundPassword = [[NSString alloc] initWithData:foundValue encoding:NSUTF8StringEncoding];
+        }
 	}
-	
-	if (status == noErr && foundValue) {
-		foundPassword = [[NSString alloc] initWithData:foundValue encoding:NSUTF8StringEncoding];
-	}
-	
+
 	return foundPassword;
 }
 
