@@ -13,8 +13,8 @@
 #import "MPOAuthCredentialConcreteStore.h"
 
 @interface MPOAuthURLResponse ()
-@property (nonatomic, readwrite, retain) NSURLResponse *urlResponse;
-@property (nonatomic, readwrite, retain) NSDictionary *oauthParameters;
+@property (nonatomic, readwrite, strong) NSURLResponse *urlResponse;
+@property (nonatomic, readwrite, strong) NSDictionary *oauthParameters;
 @end
 
 @implementation MPOAuthConnection

@@ -24,5 +24,6 @@ extern NSString *kMPOAuthSignatureMethod;
 - (MPURLRequestParameter *)oauthTimestampParameter;
 - (MPURLRequestParameter *)oauthNonceParameter;
 - (MPURLRequestParameter *)oauthVersionParameter;
+- (MPURLRequestParameter *)oauthRealmParameter;
 
 @end

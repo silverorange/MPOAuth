@@ -47,13 +47,20 @@
 #pragma mark -
 
 - (NSArray *)nonOAuthParameters {
-	NSArray *oauthParameters = [NSArray arrayWithObjects:@"oauth_signature", @"oauth_nonce", @"oauth_token", @"oauth_consumer_key", @"oauth_timestamp", @"oauth_version", @"oauth_signature_method", nil];
+	NSArray *oauthParameters = [NSArray arrayWithObjects:@"oauth_signature", @"oauth_nonce", @"oauth_token", @"oauth_consumer_key", @"oauth_timestamp", @"oauth_version", @"oauth_signature_method", @"realm", nil];
 	NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"!(name IN %@)", oauthParameters];
 	return [self.parameters filteredArrayUsingPredicate:filterPredicate];
 }
 
+- (NSArray *)signatureParameters {
+    NSArray *nonSignatureParameters = [NSArray arrayWithObjects:@"realm", nil];
+	NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"!(name IN %@)", nonSignatureParameters];
+	return [self.parameters filteredArrayUsingPredicate:filterPredicate];
+}
+
 - (NSString *)authorizationHeaderValueFromParameterString:(NSString *)parameterString {
-	NSDictionary *paramsDict = [MPURLRequestParameter parameterDictionaryFromString:parameterString];
+	NSDictionary *paramsDict = [MPURLRequestParameter parameterDictionaryFromString:parameterString]; // TODO: this might break if multiple params with same name
+    NSString *realm = [[paramsDict objectForKey:@"realm"] stringByAddingURIPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *signature = [[paramsDict objectForKey:@"oauth_signature"] stringByAddingURIPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *nonce = [[paramsDict objectForKey:@"oauth_nonce"] stringByAddingURIPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *token = [[paramsDict objectForKey:@"oauth_token"] stringByAddingURIPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -64,9 +71,17 @@
 	NSString *fullAuthString = nil;
 	
 	if (token) {
-		fullAuthString = [NSString stringWithFormat:@"OAuth oauth_token=\"%@\",oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", token, consumerKey, version, method, timeStamp, nonce, signature];
+        if (realm) {
+            fullAuthString = [NSString stringWithFormat:@"OAuth realm=\"%@\",oauth_token=\"%@\",oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", realm, token, consumerKey, version, method, timeStamp, nonce, signature];
+        } else {
+            fullAuthString = [NSString stringWithFormat:@"OAuth oauth_token=\"%@\",oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", token, consumerKey, version, method, timeStamp, nonce, signature];
+        }
 	} else {
-		fullAuthString = [NSString stringWithFormat:@"OAuth oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", consumerKey, version, method, timeStamp, nonce, signature];		
+        if (realm) {
+            fullAuthString = [NSString stringWithFormat:@"OAuth realm=\"%@\",oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", realm, consumerKey, version, method, timeStamp, nonce, signature];
+        } else {
+            fullAuthString = [NSString stringWithFormat:@"OAuth oauth_consumer_key=\"%@\",oauth_version=\"%@\",oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_nonce=\"%@\",oauth_signature=\"%@\"", consumerKey, version, method, timeStamp, nonce, signature];
+        }
 	}
 
 	return fullAuthString;
@@ -81,8 +96,9 @@
 	}
 	
 	NSString *urlString = nil;
-	NSMutableString *parameterString = [[NSMutableString alloc] initWithString:[MPURLRequestParameter parameterStringForParameters:self.parameters]];
-	MPOAuthSignatureParameter *signatureParameter = [[MPOAuthSignatureParameter alloc] initWithText:parameterString andSecret:inSecret forRequest:self usingMethod:inScheme];
+    NSMutableString *parameterString = [[NSMutableString alloc] initWithString:[MPURLRequestParameter parameterStringForParameters:self.parameters]];
+    NSString *signatureParameterString = [MPURLRequestParameter parameterStringForParameters:[self signatureParameters]];
+	MPOAuthSignatureParameter *signatureParameter = [[MPOAuthSignatureParameter alloc] initWithText:signatureParameterString andSecret:inSecret forRequest:self usingMethod:inScheme];
 
 	[parameterString appendFormat:@"&%@", [signatureParameter URLEncodedParameterString]];
 	[aRequest setHTTPMethod:self.HTTPMethod];
