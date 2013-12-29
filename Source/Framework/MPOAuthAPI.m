@@ -25,6 +25,7 @@ NSString *kMPOAuthCredentialRequestTokenSecret		= @"kMPOAuthCredentialRequestTok
 NSString *kMPOAuthCredentialAccessToken				= @"kMPOAuthCredentialAccessToken";
 NSString *kMPOAuthCredentialAccessTokenSecret		= @"kMPOAuthCredentialAccessTokenSecret";
 NSString *kMPOAuthCredentialSessionHandle			= @"kMPOAuthCredentialSessionHandle";
+NSString *kMPOAuthCredentialRealm                   = @"kMPOAuthCredentialRealm";
 
 NSString *kMPOAuthSignatureMethod					= @"kMPOAuthSignatureMethod";
 NSString * const MPOAuthTokenRefreshDateDefaultsKey		= @"MPOAuthAutomaticTokenRefreshLastExpiryDate";

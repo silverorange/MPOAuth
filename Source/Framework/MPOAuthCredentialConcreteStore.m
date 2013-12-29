@@ -78,6 +78,10 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	return [self.store objectForKey:kMPOAuthCredentialRequestToken];
 }
 
+- (NSString *)realm {
+    return [self.store objectForKey:kMPOAuthCredentialRealm];
+}
+
 - (void)setRequestToken:(NSString *)inToken {
 	if (inToken) {
 		[self.store setObject:inToken forKey:kMPOAuthCredentialRequestToken];
@@ -195,11 +199,17 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 }
 
 - (NSArray *)oauthParameters {
-	NSMutableArray *oauthParameters = [[NSMutableArray alloc] initWithCapacity:5];	
+	NSMutableArray *oauthParameters = [[NSMutableArray alloc] initWithCapacity:7];
 	MPURLRequestParameter *tokenParameter = [self oauthTokenParameter];
+    MPURLRequestParameter *realmParameter = [self oauthRealmParameter];
 	
 	[oauthParameters addObject:[self oauthConsumerKeyParameter]];
-	if (tokenParameter) [oauthParameters addObject:tokenParameter];
+	if (tokenParameter) {
+        [oauthParameters addObject:tokenParameter];
+    }
+    if (realmParameter) {
+        [oauthParameters addObject:realmParameter];
+    }
 	[oauthParameters addObject:[self oauthSignatureMethodParameter]];
 	[oauthParameters addObject:[self oauthTimestampParameter]];
 	[oauthParameters addObject:[self oauthNonceParameter]];
@@ -278,6 +288,19 @@ extern NSString * const MPOAuthCredentialSessionHandleKey;
 	}
 	
 	return versionParameter;
+}
+
+- (MPURLRequestParameter *)oauthRealmParameter {
+    MPURLRequestParameter *realmParameter = nil;
+    NSString *realm = [self.store objectForKey:kMPOAuthCredentialRealm];
+    
+    if (realm) {
+        realmParameter = [[MPURLRequestParameter alloc] init];
+        realmParameter.name = @"realm";
+        realmParameter.value = realm;
+    }
+
+    return realmParameter;
 }
 
 @end
