@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MPOAuthCredentialStore.h"
 #import "MPOAuthParameterFactory.h"
+#import "MPOAuthURLResponse.h"
 
 extern NSString * const MPOAuthNotificationAccessTokenReceived;
 extern NSString * const MPOAuthNotificationAccessTokenRejected;
@@ -39,6 +40,9 @@ typedef enum {
 	MPOAuthAuthenticationStateAuthenticated			= 2
 } MPOAuthAuthenticationState;
 
+//typedef void (^)(MPOAuthURLResponse *, NSData *, NSError *) performBlock;
+typedef void(^performBlockType)(MPOAuthURLResponse *, NSData *, NSError *);
+
 @protocol MPOAuthAPIInternalClient
 @end
 
@@ -53,6 +57,7 @@ typedef enum {
 	MPOAuthSignatureScheme										signatureScheme_;
 	NSMutableArray												*activeLoaders_;
 	MPOAuthAuthenticationState									oauthAuthenticationState_;
+    NSOperationQueue                                            *asyncQueue;
 }
 
 @property (nonatomic, readonly, strong) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
@@ -71,6 +76,13 @@ typedef enum {
 
 - (void)authenticate;
 - (BOOL)isAuthenticated;
+
+- (void)performMethod:(NSString *)inMethod then:(performBlockType)handler;
+- (void)performMethod:(NSString *)inMethod withParameters:(NSArray *)inParameters then:(performBlockType)handler;
+- (void)performMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters then:(performBlockType)handler;
+- (void)performPOSTMethod:(NSString *)inMethod withParameters:(NSArray *)inParameters then:(performBlockType)handler;
+- (void)performPOSTMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters then:(performBlockType)handler;
+- (void)performURLRequest:(NSURLRequest *)inRequest then:(performBlockType)handler;
 
 - (void)performMethod:(NSString *)inMethod withTarget:(id)inTarget andAction:(SEL)inAction;
 - (void)performMethod:(NSString *)inMethod withParameters:(NSArray *)inParameters withTarget:(id)inTarget andAction:(SEL)inAction;

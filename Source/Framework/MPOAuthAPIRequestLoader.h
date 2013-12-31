@@ -45,6 +45,7 @@ extern NSString * const MPOAuthNotificationErrorHasOccurred;
 - (id)initWithRequest:(MPOAuthURLRequest *)inRequest;
 
 - (void)loadSynchronously:(BOOL)inSynchronous;
+- (void)loadAsynchronously:(NSOperationQueue *)queue completionHandler:(void (^)(MPOAuthURLResponse *, NSData *, NSError *))handler;
 
 @end
 

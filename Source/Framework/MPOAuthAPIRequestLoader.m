@@ -94,6 +94,18 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 	}
 }
 
+- (void)loadAsynchronously:(NSOperationQueue *)queue completionHandler:(void (^)(MPOAuthURLResponse *, NSData *, NSError *))handler
+{
+    NSAssert(_credentials, @"Unable to load without valid credentials");
+	NSAssert(_credentials.consumerKey, @"Unable to load, credentials contain no consumer key");
+    
+    [MPOAuthConnection sendAsynchronousRequest:self.oauthRequest usingCredentials:self.credentials queue:queue completionHandler:^(MPOAuthURLResponse *inResponse, NSData *data, NSError *error) {
+        self.oauthResponse = inResponse;
+        [self _interrogateResponseForOAuthData];
+        handler(inResponse, data, error);
+    }];
+}
+
 #pragma mark -
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

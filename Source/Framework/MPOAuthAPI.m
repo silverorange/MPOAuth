@@ -41,6 +41,8 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 @property (nonatomic, readwrite, assign) MPOAuthAuthenticationState authenticationState;
 
 - (void)performMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters withTarget:(id)inTarget andAction:(SEL)inAction usingHTTPMethod:(NSString *)inHTTPMethod;
+- (void)performMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters usingHTTPMethod:(NSString *)inHTTPMethod then:(performBlockType)handler;
+
 @end
 
 @implementation MPOAuthAPI
@@ -131,7 +133,57 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 	return (self.authenticationState == MPOAuthAuthenticationStateAuthenticated);
 }
 
-#pragma mark -
+#pragma mark - Perform Then (async blocks)
+
+- (void)performMethod:(NSString *)inMethod then:(performBlockType)handler {
+    [self performMethod:inMethod atURL:self.baseURL withParameters:nil usingHTTPMethod:@"GET" then:handler];
+}
+
+- (void)performMethod:(NSString *)inMethod withParameters:(NSArray *)inParameters then:(performBlockType)handler {
+    [self performMethod:inMethod atURL:self.baseURL withParameters:inParameters usingHTTPMethod:@"GET" then:handler];
+}
+
+- (void)performMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters then:(performBlockType)handler {
+    [self performMethod:inMethod atURL:inURL withParameters:inParameters usingHTTPMethod:@"GET" then:handler];
+}
+
+- (void)performPOSTMethod:(NSString *)inMethod withParameters:(NSArray *)inParameters then:(performBlockType)handler {
+    [self performMethod:inMethod atURL:self.baseURL withParameters:inParameters usingHTTPMethod:@"POST" then:handler];
+}
+
+- (void)performPOSTMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters then:(performBlockType)handler {
+    [self performMethod:inMethod atURL:inURL withParameters:inParameters usingHTTPMethod:@"POST" then:handler];
+}
+
+- (void)performURLRequest:(NSURLRequest *)inRequest then:(performBlockType)handler {
+    if (!inRequest && ![[inRequest URL] path] && ![[inRequest URL] query]) {
+		[NSException raise:@"MPOAuthNilMethodRequestException" format:@"Nil was passed as the method to be performed on %@", inRequest];
+	}
+    
+	MPOAuthURLRequest *aRequest = [[MPOAuthURLRequest alloc] initWithURLRequest:inRequest];
+	MPOAuthAPIRequestLoader *loader = [[MPOAuthAPIRequestLoader alloc] initWithRequest:aRequest];
+	
+	loader.credentials = self.credentials;
+    
+    [loader loadAsynchronously:asyncQueue completionHandler:handler];
+}
+
+- (void)performMethod:(NSString *)inMethod atURL:(NSURL *)inURL withParameters:(NSArray *)inParameters usingHTTPMethod:(NSString *)inHTTPMethod then:(performBlockType)handler {
+    if (!inMethod && ![inURL path] && ![inURL query]) {
+		[NSException raise:@"MPOAuthNilMethodRequestException" format:@"Nil was passed as the method to be performed on %@", inURL];
+	}
+    
+    NSURL *requestURL = inMethod ? [NSURL URLWithString:inMethod relativeToURL:inURL] : inURL;
+	MPOAuthURLRequest *aRequest = [[MPOAuthURLRequest alloc] initWithURL:requestURL andParameters:inParameters];
+	MPOAuthAPIRequestLoader *loader = [[MPOAuthAPIRequestLoader alloc] initWithRequest:aRequest];
+	
+	aRequest.HTTPMethod = inHTTPMethod;
+	loader.credentials = self.credentials;
+
+    [loader loadAsynchronously:asyncQueue completionHandler:handler];
+}
+
+#pragma mark - Perform With Target (async delegate)
 
 - (void)performMethod:(NSString *)inMethod withTarget:(id)inTarget andAction:(SEL)inAction {
 	[self performMethod:inMethod atURL:self.baseURL withParameters:nil withTarget:inTarget andAction:inAction usingHTTPMethod:@"GET"];
@@ -189,6 +241,8 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 	
 }
 
+#pragma mark - Data For (synchronous)
+
 - (NSData *)dataForMethod:(NSString *)inMethod {
 	return [self dataForURL:self.baseURL andMethod:inMethod withParameters:nil];
 }
@@ -209,7 +263,7 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 	return loader.data;
 }
 
-#pragma mark -
+#pragma mark - Credentials
 
 - (id)credentialNamed:(NSString *)inCredentialName {
 	return [self.credentials credentialNamed:inCredentialName];
@@ -225,11 +279,9 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 
 - (void)discardCredentials {
 	[self.credentials discardOAuthCredentials];
-	
 	self.authenticationState = MPOAuthAuthenticationStateUnauthenticated;
 }
 
-#pragma mark -
 #pragma mark - Private APIs -
 
 - (void)_performedLoad:(MPOAuthAPIRequestLoader *)inLoader receivingData:(NSData *)inData {
