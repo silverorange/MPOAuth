@@ -20,7 +20,7 @@
 @property (nonatomic, readonly, strong) NSDictionary *urlRelationships;
 
 - (id)initFromURL:(NSURL *)inURL;
-- (id)iniWithString:(NSString *)inString;
+- (id)initWithString:(NSString *)inString;
 - (NSURL *)urlForRelationship:(NSString *)inRelationshipType;
 
 @end
