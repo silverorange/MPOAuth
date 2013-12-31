@@ -17,7 +17,7 @@
 
 @interface MPOAuthConnection : NSURLConnection {
 @private
-	MPOAuthCredentialConcreteStore *__weak _credentials;
+    NSObject <MPOAuthCredentialStore, MPOAuthParameterFactory> *__weak _credentials;
 }
 
 @property (weak, nonatomic, readonly) id <MPOAuthCredentialStore, MPOAuthParameterFactory> credentials;
