@@ -36,6 +36,15 @@
 	return responseData;
 }
 
++ (void)sendAsynchronousRequest:(MPOAuthURLRequest *)inRequest usingCredentials:(NSObject <MPOAuthCredentialStore, MPOAuthParameterFactory> *)inCredentials queue:(NSOperationQueue *)queue completionHandler:(void (^)(MPOAuthURLResponse *, NSData *, NSError *))handler {
+    NSURLRequest *urlRequest = [inRequest urlRequestSignedWithSecret:[inCredentials signingKey] usingMethod:[inCredentials signatureMethod]];
+    [super sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *inResponse, NSData *data, NSError *error) {
+        MPOAuthURLResponse *response = [[MPOAuthURLResponse alloc] init];
+        response.urlResponse = inResponse;
+        handler(response, data, error);
+    }];
+}
+
 - (id)initWithRequest:(MPOAuthURLRequest *)inRequest delegate:(id)inDelegate credentials:(NSObject <MPOAuthCredentialStore, MPOAuthParameterFactory> *)inCredentials {
 	[inRequest addParameters:[inCredentials oauthParameters]];
 	NSURLRequest *urlRequest = [inRequest urlRequestSignedWithSecret:[inCredentials signingKey] usingMethod:[inCredentials signatureMethod]];
