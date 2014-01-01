@@ -79,6 +79,7 @@ NSString * const MPOAuthAuthenticationURLKey		= @"MPOAuthAuthenticationURL";
 		self.baseURL = [NSURL URLWithString:[inConfiguration valueForKey:MPOAuthBaseURLKey]];
 		self.authenticationState = MPOAuthAuthenticationStateUnauthenticated;
 		credentials_ = [[MPOAuthCredentialConcreteStore alloc] initWithCredentials:inCredentials forBaseURL:self.baseURL withAuthenticationURL:self.authenticationURL];
+        // TODO: check if we have access token loaded from keyring and update auth state accordingly
 		self.authenticationMethod = [[MPOAuthAuthenticationMethod alloc] initWithAPI:self forURL:self.authenticationURL withConfiguration:inConfiguration];				
 		self.signatureScheme = MPOAuthSignatureSchemeHMACSHA1;
 		

@@ -33,9 +33,9 @@
 		NSAssert(username, @"XAuth requires a Username credential");
 		NSAssert(password, @"XAuth requires a Password credential");
 		
-		MPURLRequestParameter *usernameParameter = [[MPURLRequestParameter alloc] initWithName:@"x_auth_username" andValue:username];
-		MPURLRequestParameter *passwordParameter = [[MPURLRequestParameter alloc] initWithName:@"x_auth_password" andValue:password];
-		MPURLRequestParameter *clientModeParameter = [[MPURLRequestParameter alloc] initWithName:@"x_auth_mode" andValue:@"client_auth"];
+		MPURLRequestParameter *usernameParameter = [[MPURLRequestParameter alloc] initWithName:@"xauth_username" andValue:username];
+		MPURLRequestParameter *passwordParameter = [[MPURLRequestParameter alloc] initWithName:@"xauth_password" andValue:password];
+		MPURLRequestParameter *clientModeParameter = [[MPURLRequestParameter alloc] initWithName:@"xauth_mode" andValue:@"client_auth"];
 		
 		[self.oauthAPI performPOSTMethod:nil
 								   atURL:self.oauthGetAccessTokenURL
@@ -43,6 +43,8 @@
 							  withTarget:self
 							   andAction:nil];
 	} else if (credentials.accessToken && credentials.accessTokenSecret) {
+        [self.oauthAPI setAuthenticationState:MPOAuthAuthenticationStateAuthenticated];
+
 		NSTimeInterval expiryDateInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:MPOAuthTokenRefreshDateDefaultsKey];
 		NSDate *tokenExpiryDate = [NSDate dateWithTimeIntervalSinceReferenceDate:expiryDateInterval];
 		

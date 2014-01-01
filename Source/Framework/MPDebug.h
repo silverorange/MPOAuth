@@ -6,8 +6,8 @@
 //  Copyright 2009 matrixPointer. All rights reserved.
 //
 
-#ifdef DEBUG
+    //#ifdef DEBUG
 	#define MPLog(...) NSLog(__VA_ARGS__)
-#else
-	#define MPLog(...) do { } while (0)
-#endif
+    //#else
+    //#define MPLog(...) do { } while (0)
+    //#endif

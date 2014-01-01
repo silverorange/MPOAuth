@@ -136,15 +136,24 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 	[self _interrogateResponseForOAuthData];
 	
 	if (_action) {
+        IMP imp = [_target methodForSelector:_action];
+        void (*funcWithData)(id, SEL, NSData *) = (void*)imp;
+        void (*funcWithURLAndResponseString)(id, SEL, NSURL *, NSString *) = (void*)imp;
+        
+        
 		if ([_target conformsToProtocol:@protocol(MPOAuthAPIInternalClient)]) {
-			[_target performSelector:_action withObject:self withObject:self.data];
+             [_target performSelector:_action withObject:self withObject:self.data];
+                //funcWithData(_target, _action, self.data);
 		} else {
-			[_target performSelector:_action withObject:self.oauthRequest.url withObject:self.responseString];
+                //funcWithURLAndResponseString(_target, _action, self.oauthRequest.url, self.responseString);
+             [_target performSelector:_action withObject:self.oauthRequest.url withObject:self.responseString];
 		}
 	}
 }
 
 #pragma mark -
+
+    // Note: this should go in MPOAuthAPI so it knows the auth type being used
 
 - (void)_interrogateResponseForOAuthData {
 	NSString *response = self.responseString;
@@ -188,7 +197,10 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 			MPLog(@"foundParameters = %@", foundParameters);
 
 			if ([foundParameters count] && (aParameterValue = [foundParameters objectForKey:@"oauth_token"])) {
-				if (!self.credentials.requestToken && !self.credentials.accessToken) {
+                NSLog(@"contains auth token");
+                NSLog(@"at: %@  rt: %@", self.credentials.accessToken, self.credentials.requestToken);
+				/*if (!self.credentials.requestToken && !self.credentials.accessToken) {
+                    NSLog(@"request token received");
 					[_credentials setRequestToken:aParameterValue];
 					[_credentials setRequestTokenSecret:[foundParameters objectForKey:@"oauth_token_secret"]];
 					
@@ -196,7 +208,11 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 																		object:nil
 																	  userInfo:foundParameters];
 					
-				} else if (!self.credentials.accessToken && self.credentials.requestToken) {
+				} else if (!self.credentials.accessToken && self.credentials.requestToken) {*/
+                if (!self.credentials.accessToken) {
+
+                    NSLog(@"access token received");
+
 					[_credentials setRequestToken:nil];
 					[_credentials setRequestTokenSecret:nil];
 					[_credentials setAccessToken:aParameterValue];
@@ -206,7 +222,11 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 																		object:nil
 																	  userInfo:foundParameters];
 					
-				} else if (self.credentials.accessToken && !self.credentials.requestToken) {
+                        //} else if (self.credentials.accessToken && !self.credentials.requestToken) {
+                } else {
+
+                    NSLog(@"refreshed token received");
+
 					// replace the current token
 					[_credentials setAccessToken:aParameterValue];
 					[_credentials setAccessTokenSecret:[foundParameters objectForKey:@"oauth_token_secret"]];
@@ -217,7 +237,12 @@ NSString * const MPOAuthNotificationErrorHasOccurred		= @"MPOAuthNotificationErr
 				}
 			}
 		}
-	}
+	} else if (status >= 400 && status < 500) {
+        // something's messed up, so throw an error
+        [[NSNotificationCenter defaultCenter] postNotificationName:MPOAuthNotificationErrorHasOccurred
+                                                            object:nil
+                                                          userInfo:nil];
+    }
 }
 
 @end
